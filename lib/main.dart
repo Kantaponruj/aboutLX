@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'file:///E:/phoowork/CSC234/androidApp/aboutLX/about_lx/lib/screen/home.dart';
+import 'package:aboutlx/screen/home.dart';
 
 void main() {
   runApp(MyApp());
