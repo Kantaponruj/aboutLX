@@ -12,19 +12,20 @@ class home extends StatefulWidget {
 }
 
 class _homeState extends State<home> {
+  static String s = "Yes, it is testYes, it is testYes, it is testYes, it is testYes, it is testYes, it is test Yes, it is testYes, it is testYes, it is testYes, it is testYes, it is testYes, it is test";
   static List<Exhibition> e = [
-    new Exhibition("SIT01","Yes, it is test",new Date(1, 1, 2020),[
-      new Event("eat", "NO", "SIT01", DateTime.parse("2020-01-01 08:00:00"), DateTime.parse("2020-01-01 10:00:00")),
-      new Event("eat agian", "NO", "SIT01", DateTime.parse("2020-01-01 10:00:00"), DateTime.parse("2020-01-01 12:00:00")),
-      new Event("sleep", "NO", "SIT01", DateTime.parse("2020-01-01 13:00:00"), DateTime.parse("2020-01-01 15:00:00")),
+    new Exhibition("SIT01",s,new Date(1, 1, 2020),"images/DSC_0019.jpg",[
+      new Event("Eat", "NO", "SIT01", DateTime.parse("2020-01-01 08:00:00"), DateTime.parse("2020-01-01 10:00:00"),"A01"),
+      new Event("Eat Agian", "NO", "SIT01", DateTime.parse("2020-01-01 10:00:00"), DateTime.parse("2020-01-01 12:00:00"),"A02"),
+      new Event("Sleep", "NO", "SIT01", DateTime.parse("2020-01-01 13:00:00"), DateTime.parse("2020-01-01 15:00:00"),"A03"),
     ]),
-    new Exhibition("SIT02","Yes, it is test",new Date(3, 4, 2020),[
-      new Event("walk", "NO", "SIT02", DateTime.parse("2020-01-01 08:00:00"), DateTime.parse("2020-01-01 10:00:00")),
-      new Event("walk fast", "NO", "SIT02", DateTime.parse("2020-01-01 10:00:00"), DateTime.parse("2020-01-01 12:00:00")),
-      new Event("run", "NO", "SIT02", DateTime.parse("2020-01-01 13:00:00"), DateTime.parse("2020-01-01 15:00:00")),
+    new Exhibition("SIT02",s,new Date(3, 4, 2020),"images/DSC_0019.jpg",[
+      new Event("Walk", "NO", "SIT02", DateTime.parse("2020-01-01 08:00:00"), DateTime.parse("2020-01-01 10:00:00"),"A01"),
+      new Event("Walk fast", "NO", "SIT02", DateTime.parse("2020-01-01 10:00:00"), DateTime.parse("2020-01-01 12:00:00"),"A02"),
+      new Event("Run", "NO", "SIT02", DateTime.parse("2020-01-01 13:00:00"), DateTime.parse("2020-01-01 15:00:00"),"A03"),
     ]),
-    new Exhibition("SIT03","Yes, it is test",new Date(21, 6, 2020),[
-      new Event("Learn", "NO", "SIT03", DateTime.parse("2020-01-01 08:00:00"), DateTime.parse("2020-01-01 18:00:00")),
+    new Exhibition("SIT03",s,new Date(21, 6, 2020),"images/DSC_0019.jpg",[
+      new Event("Learn", "NO", "SIT03", DateTime.parse("2020-01-01 08:00:00"), DateTime.parse("2020-01-01 18:00:00"),"A02"),
     ]),
   ];
   Icon searchIcon = Icon(Icons.search);

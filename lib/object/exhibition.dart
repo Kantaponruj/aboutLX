@@ -4,9 +4,10 @@ class Exhibition{
   String name;
   String detail;
   Date date;
+  String pic;
   List<Event> events;
 
-  Exhibition(this.name, this.detail, this.date, this.events);
+  Exhibition(this.name, this.detail, this.date, this.pic, this.events);
 
 }
 

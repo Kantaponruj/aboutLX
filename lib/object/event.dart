@@ -4,7 +4,8 @@ class Event{
   String exhibition;
   DateTime start;
   DateTime end;
+  String room;
 
-  Event(this.name, this.detail, this.exhibition, this.start, this.end);
+  Event(this.name, this.detail, this.exhibition, this.start, this.end, this.room);
 
 }

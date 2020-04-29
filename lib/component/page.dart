@@ -4,7 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:aboutlx/component/text_style.dart';
 import 'package:aboutlx/object/exhibition.dart';
-import 'package:aboutlx/exhibitionPage.dart';
+import 'package:aboutlx/screen/exhibitionPage.dart';
+import 'package:aboutlx/component/eventListview.dart';
 
 class ExPage extends StatelessWidget {
   int page;
@@ -42,10 +43,10 @@ class ExPage extends StatelessWidget {
                         ),
                         child: Container(
                           width: deviceData.size.width,
-                          height: deviceData.size.width / 1.8,
+                          height: deviceData.size.height*0.25,
                           decoration: BoxDecoration(
                             image: DecorationImage(
-                                image: AssetImage("images/DSC_0019.jpg"),
+                                image: AssetImage(exhibition.pic),
                                 fit: BoxFit.cover),
                           ),
                         ),
@@ -70,33 +71,7 @@ class ExPage extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemExtent: deviceData.size.width,
-                itemCount: exhibition.events.length,
-                itemBuilder: (context, index) => Container(
-                      padding: EdgeInsets.all(30),
-                      child: Material(
-                        borderRadius: BorderRadius.circular(10.0),
-                        color:
-                            index % 2 == 0 ? Colors.orange : Colors.amberAccent,
-                        child: Container(
-                          padding: EdgeInsets.all(5),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              WhiteTitleText(exhibition.events[index].name),
-                              WhiteTitleText(DateFormat.Hm()
-                                      .format(exhibition.events[index].start) +
-                                  " to " +
-                                  DateFormat.Hm()
-                                      .format(exhibition.events[index].end)),
-                            ],
-                          ),
-                        ),
-                      ),
-                    )
-            ),
+            child: EventListView(exhibition,deviceData)
           ),
         ],
       ),
