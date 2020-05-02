@@ -23,7 +23,7 @@ class _eventPageState extends State<eventPage> {
       appBar: AppBar(
 //        backgroundColor: Colors.white,
         elevation: 0.0,
-        title: Text("Exhibition Info"),
+        title: Text("Event Info"),
       ),
       body: Container(
         child: SingleChildScrollView(

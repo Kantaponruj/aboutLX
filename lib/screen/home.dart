@@ -38,15 +38,42 @@ class _homeState extends State<home> {
     print(deviceData.size.width);
     return Scaffold(
       backgroundColor: Colors.white,
+      drawer: Drawer(child: ListView(
+        padding: EdgeInsets.zero,
+        children: <Widget>[
+          DrawerHeader(
+            child: Text('Drawer Header') ,
+            decoration: BoxDecoration(
+              color: Colors.lightBlue,
+            ),
+          ),
+          ListTile(
+            title: Text('Item1'),
+            onTap: (){
+
+            },
+          ),
+          ListTile(
+            title: Text('Item1'),
+            onTap: (){
+              
+            },
+          ),
+        ],
+      ) ,),
+      
       appBar: AppBar(
+        
         backgroundColor: Colors.white,
         elevation: 0.0,
-        leading: IconButton(
-          onPressed: (){},
-          color: Color.fromRGBO(189, 189, 189, 1),
-          icon: Icon(Icons.menu),
-        ),
+        // leading: IconButton(
+        //   onPressed: (){},
+        //   color: Color.fromRGBO(189, 189, 189, 1),
+        //   icon: Icon(Icons.menu),
+        // ),
         title: searchInput,
+        iconTheme: new IconThemeData(color: Color.fromRGBO(189, 189, 189, 1)),
+
         actions: <Widget>[
           IconButton(
             onPressed: (){
@@ -72,6 +99,7 @@ class _homeState extends State<home> {
           ),
         ],
       ),
+      
       body: Container(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
