@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:aboutlx/object/drawer.dart';
 import 'package:aboutlx/object/event.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -38,33 +39,11 @@ class _homeState extends State<home> {
     print(deviceData.size.width);
     return Scaffold(
       backgroundColor: Colors.white,
-      drawer: Drawer(child: ListView(
-        padding: EdgeInsets.zero,
-        children: <Widget>[
-          DrawerHeader(
-            child: Text('Drawer Header') ,
-            decoration: BoxDecoration(
-              color: Colors.lightBlue,
-            ),
-          ),
-          ListTile(
-            title: Text('Item1'),
-            onTap: (){
-
-            },
-          ),
-          ListTile(
-            title: Text('Item1'),
-            onTap: (){
-              
-            },
-          ),
-        ],
-      ) ,),
+      drawer: drawer(),
       
       appBar: AppBar(
         
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.transparent,
         elevation: 0.0,
         // leading: IconButton(
         //   onPressed: (){},
