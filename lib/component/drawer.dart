@@ -39,9 +39,10 @@ class drawer extends StatelessWidget {
           ),
           ),
           ListTile(
+            leading: Icon(Icons.map),
             title: Text('Map'),
             onTap: (){
-
+              Navigator.of(context).pop();
             },
           ),
           ListTile(
@@ -51,21 +52,24 @@ class drawer extends StatelessWidget {
             },
           ),
           ListTile(
+            leading: Icon(Icons.history),
             title: Text('History'),
             onTap: (){
-              
+              Navigator.of(context).pop();
             },
           ),
           ListTile(
+            leading: Icon(Icons.add_a_photo),
             title: Text('QR Code'),
             onTap: (){
-              
+              Navigator.of(context).pop();
             },
           ),
           ListTile(
+            leading: Icon(Icons.event),
             title: Text('Schedule'),
             onTap: (){
-              
+              Navigator.of(context).pop();
             },
           ),
           ListTile(

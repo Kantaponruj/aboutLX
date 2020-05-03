@@ -1,9 +1,6 @@
 import 'dart:ui';
-<<<<<<< HEAD
 import 'package:aboutlx/component/menuDrawer.dart';
-=======
 import 'package:aboutlx/component/drawer.dart';
->>>>>>> master
 import 'package:aboutlx/object/event.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -43,21 +40,16 @@ class _homeState extends State<home> {
     print("build");
     return Scaffold(
       backgroundColor: Colors.white,
-      drawer: drawer(),
       
       appBar: AppBar(
         
         backgroundColor: Colors.transparent,
         elevation: 0.0,
-<<<<<<< HEAD
-        iconTheme: IconThemeData(color: Color.fromRGBO(189, 189, 189, 1)),
-=======
         // leading: IconButton(
         //   onPressed: (){},
         //   color: Color.fromRGBO(189, 189, 189, 1),
         //   icon: Icon(Icons.menu),
         // ),
->>>>>>> master
         title: searchInput,
         iconTheme: new IconThemeData(color: Color.fromRGBO(189, 189, 189, 1)),
 
@@ -85,11 +77,8 @@ class _homeState extends State<home> {
           ),
         ],
       ),
-<<<<<<< HEAD
-      drawer: MenuDrawer(),
-=======
+      drawer: drawer(),
       
->>>>>>> master
       body: Container(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
