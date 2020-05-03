@@ -1,5 +1,5 @@
 import 'dart:ui';
-import 'package:aboutlx/object/drawer.dart';
+import 'package:aboutlx/component/drawer.dart';
 import 'package:aboutlx/object/event.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
