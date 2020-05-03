@@ -39,13 +39,14 @@ class drawer extends StatelessWidget {
           ),
           ),
           ListTile(
-            leading: Icon(Icons.map),
+            leading: Icon(Icons.near_me),
             title: Text('Map'),
             onTap: (){
               Navigator.of(context).pop();
             },
           ),
           ListTile(
+            leading: Icon(Icons.notifications),
             title: Text('Notification'),
             onTap: (){
               
@@ -73,6 +74,7 @@ class drawer extends StatelessWidget {
             },
           ),
           ListTile(
+            leading: Icon(Icons.power_settings_new),
             title: Text('Logout'),
             onTap: (){
               
