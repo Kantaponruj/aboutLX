@@ -37,7 +37,7 @@ class _eventPageState extends State<eventPage> {
                   children: <Widget>[
                     TitleText.withSize(event.name,20),
                     SubTitleText(DateFormat.Hm().format(event.start)+" - "+DateFormat.Hm().format(event.end)),
-                    SubTitleText(event.room),
+                    SubTitleText("Room: "+event.room),
                     SizedBox(height: 10,),
                     Text(event.detail),
                   ],

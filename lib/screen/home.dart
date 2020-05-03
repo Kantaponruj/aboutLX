@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:aboutlx/component/menuDrawer.dart';
 import 'package:aboutlx/object/event.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -35,17 +36,13 @@ class _homeState extends State<home> {
   @override
   Widget build(BuildContext context) {
     var deviceData = MediaQuery.of(context);
-    print(deviceData.size.width);
+    print("build");
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0.0,
-        leading: IconButton(
-          onPressed: (){},
-          color: Color.fromRGBO(189, 189, 189, 1),
-          icon: Icon(Icons.menu),
-        ),
+        iconTheme: IconThemeData(color: Color.fromRGBO(189, 189, 189, 1)),
         title: searchInput,
         actions: <Widget>[
           IconButton(
@@ -68,10 +65,10 @@ class _homeState extends State<home> {
               });
             },
             icon: searchIcon,
-            color: Color.fromRGBO(189, 189, 189, 1),
           ),
         ],
       ),
+      drawer: MenuDrawer(),
       body: Container(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
