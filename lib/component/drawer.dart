@@ -1,3 +1,4 @@
+import 'package:aboutlx/screen/history.dart';
 import 'package:aboutlx/services/auth.dart';
 import 'package:flutter/material.dart';
 
@@ -32,7 +33,8 @@ class DrawerMenu extends StatelessWidget {
                             image: new NetworkImage(
                                 "https://cdn4.iconfinder.com/data/icons/e-commerce-181/512/477_profile__avatar__man_-512.png")
                         )
-                    )), 
+                    )
+                    ), 
 
             new Text('Guest',
             style: TextStyle(
@@ -61,7 +63,7 @@ class DrawerMenu extends StatelessWidget {
             leading: Icon(Icons.history),
             title: Text('History'),
             onTap: (){
-              Navigator.of(context).pop();
+              Navigator.push( context, MaterialPageRoute(builder: (context) => history()));
             },
           ),
           ListTile(
