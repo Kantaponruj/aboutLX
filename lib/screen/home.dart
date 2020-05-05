@@ -1,19 +1,22 @@
 import 'dart:ui';
-import 'package:aboutlx/component/menuDrawer.dart';
 import 'package:aboutlx/component/drawer.dart';
 import 'package:aboutlx/object/event.dart';
+import 'package:aboutlx/services/auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:aboutlx/component/text_style.dart';
 import 'package:aboutlx/object/exhibition.dart';
 import 'package:aboutlx/component/page.dart';
 
-class home extends StatefulWidget {
+class Home extends StatefulWidget {
   @override
   _homeState createState() => _homeState();
 }
 
-class _homeState extends State<home> {
+class _homeState extends State<Home> {
+
+  final AuthService _auth = AuthService();
+
   static String s = "Yes, it is testYes, it is testYes, it is testYes, it is testYes, it is testYes, it is test Yes, it is testYes, it is testYes, it is testYes, it is testYes, it is testYes, it is test";
   static List<Exhibition> e = [
     new Exhibition("SIT01",s,new Date(1, 1, 2020),"images/DSC_0019.jpg",[
@@ -45,11 +48,6 @@ class _homeState extends State<home> {
         
         backgroundColor: Colors.transparent,
         elevation: 0.0,
-        // leading: IconButton(
-        //   onPressed: (){},
-        //   color: Color.fromRGBO(189, 189, 189, 1),
-        //   icon: Icon(Icons.menu),
-        // ),
         title: searchInput,
         iconTheme: new IconThemeData(color: Color.fromRGBO(189, 189, 189, 1)),
 
@@ -77,7 +75,7 @@ class _homeState extends State<home> {
           ),
         ],
       ),
-      drawer: drawer(),
+      drawer: DrawerMenu(),
       
       body: Container(
         child: Column(

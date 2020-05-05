@@ -1,6 +1,10 @@
+import 'package:aboutlx/services/auth.dart';
 import 'package:flutter/material.dart';
 
-class drawer extends StatelessWidget {
+class DrawerMenu extends StatelessWidget {
+
+  final AuthService _auth = AuthService();
+
   @override
   Widget build(BuildContext context) {
     return Theme(
@@ -76,8 +80,9 @@ class drawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.power_settings_new),
             title: Text('Logout'),
-            onTap: (){
-              
+            onTap:() async{
+              await _auth.logOut();
+              await _auth.signInAnon();
             },
           ),
         ],
