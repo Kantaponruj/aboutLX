@@ -37,6 +37,8 @@ class _homeState extends State<Home> {
   Widget searchInput = Text("");
   final controller = PageController(initialPage: 0,);
   String date= e[0].date.monthInName()+", "+e[0].date.year.toString();
+
+  
   @override
   Widget build(BuildContext context) {
     var deviceData = MediaQuery.of(context);

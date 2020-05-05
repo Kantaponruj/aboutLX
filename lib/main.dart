@@ -1,6 +1,10 @@
+<<<<<<< Updated upstream
 import 'package:aboutlx/models/user.dart';
 import 'package:aboutlx/screen/wrapper.dart';
 import 'package:aboutlx/services/auth.dart';
+=======
+import 'package:aboutlx/screen/history.dart';
+>>>>>>> Stashed changes
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -22,6 +26,10 @@ class MyApp extends StatelessWidget {
         ),
         home: Wrapper(),
       ),
+<<<<<<< Updated upstream
+=======
+      home: history(),
+>>>>>>> Stashed changes
     );
   }
 }
