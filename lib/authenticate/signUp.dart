@@ -1,18 +1,17 @@
-import 'package:aboutlx/authenticate/signUp.dart';
 import 'package:aboutlx/component/loadingScreen.dart';
 import 'package:aboutlx/component/text_style.dart';
 import 'package:aboutlx/services/auth.dart';
 import 'package:flutter/material.dart';
 
-class SignIn extends StatefulWidget {
+class SignUp extends StatefulWidget {
   @override
-  _SignInState createState() => _SignInState();
+  _SignUpState createState() => _SignUpState();
 }
 
-class _SignInState extends State<SignIn> {
+class _SignUpState extends State<SignUp> {
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
-  bool loading = false;
+  bool loading=false;
   String email = "";
   String password = "";
   String error="";
@@ -21,6 +20,11 @@ class _SignInState extends State<SignIn> {
   Widget build(BuildContext context) {
     var deviceData = MediaQuery.of(context);
     return loading ? Loading():Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
+        iconTheme: new IconThemeData(color: Color.fromRGBO(189, 189, 189, 1)),
+      ),
         body: SingleChildScrollView(
           child: Container(
               padding: EdgeInsets.all(50),
@@ -38,23 +42,30 @@ class _SignInState extends State<SignIn> {
                       child: Text("LOGO"),
                     ),
                   ),
+                  SizedBox(height: 30),
                   Form(
                     key: _formKey,
                     child: Column(
                       children: <Widget>[
-                        SizedBox(height: 30),
                         TextFormField(
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5)
+                                borderRadius: BorderRadius.circular(5)
                             ),
                             contentPadding: EdgeInsets.only(left: 15.0, bottom: 8.0, top: 0.0, right: 15.0),
+
                             labelText: "E-mail",
+                            helperText: 'Enter your user E-mail',
+                            helperStyle: TextStyle(
+                              fontStyle: FontStyle.italic,
+                              height: 1
+                            ),
                           ),
-                          validator:(String value){
-                            if(value.isEmpty){
-                              return 'E-mail is a required filed.';
-                            }else{
+                          validator: (String value) {
+                            if (!((value.contains('@')) && (value.contains('.')))) {
+                              //validate email must contain '@' and '.'
+                              return 'Please enter your valid email';
+                            } else {
                               return null;
                             }
                           },
@@ -75,11 +86,18 @@ class _SignInState extends State<SignIn> {
                                 left: 15.0, bottom: 8.0, top: 8.0),
 
                             labelText: "Password",
+                            helperText: 'Enter password with 8 or more characters',
+                            helperStyle: TextStyle(
+                              // style of helpertext
+
+                              fontStyle: FontStyle.italic,
+                              height: 1
+                            ),
                           ),
                           validator: (String value) {
-                            if (value.isEmpty) {
+                            if (value.length < 8) {
                               // validate password must longer than 6 character
-                              return 'Password is a required filed.';
+                              return 'Password is too short must be at least 8 characters';
                             } else {
                               return null;
                             }
@@ -90,25 +108,50 @@ class _SignInState extends State<SignIn> {
                             });
                           },
                         ),
+                        SizedBox(height: 15),
+                        TextFormField(
+                          obscureText: true,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5)
+                            ),
+                            contentPadding: const EdgeInsets.only(
+                                left: 15.0, bottom: 8.0, top: 8.0),
+
+                            labelText: "Password confirm",
+                            helperText: 'Re-type the password',
+                            helperStyle: TextStyle(
+                              // style of helpertext
+
+                                fontStyle: FontStyle.italic,
+                                height: 1
+                            ),
+                          ),
+                          validator: (String value) {
+                            if (value != password) {
+                              // validate password must longer than 6 character
+                              return 'Password not match';
+                            } else {
+                              return null;
+                            }
+                          },
+                        ),
                         SizedBox(height: 30),
-                        SubTitleText(error),
                         InkWell(
                           onTap: () async {
                             if(_formKey.currentState.validate()){
-                              setState(() {
-                                loading=true;
-                              });
+                              loading=true;
                               print("sign up with\n"+email+"\n"+password);
-                              dynamic result = await _auth.signIn(email, password);
+                              dynamic result = await _auth.register(email, password);
                               if(result==null){
                                 setState(() {
-                                  error = "E-mail and password are not match";
+                                  error = "Invalid E-mail or It is already use";
                                 });
                               }
                               else{
                                 setState(() {
                                   error = "";
-//                                  Navigator.of(context).pop();
+                                  Navigator.of(context).pop();
                                 });
                               }
                             }
@@ -123,83 +166,14 @@ class _SignInState extends State<SignIn> {
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
-                                    WhiteTitleText("Log in"),
+                                    WhiteTitleText("Register"),
                                   ],
                                 ),
                               ),
                             ),
                           ),
                         ),
-                        SizedBox(height: 20,),
-                        Row(
-                            children: <Widget>[
-                              Expanded(
-                                  child: Divider(
-                                    thickness: 1,
-                                    color: Colors.black,
-                                    endIndent: 5,
-                                  )
-                              ),
-                              Text("OR"),
-                              Expanded(
-                                  child: Divider(
-                                    thickness: 1,
-                                    color: Colors.black,
-                                    indent: 5,
-                                  )
-                              ),
-                            ]
-                        ),
-                        SizedBox(height: 20,),
-                        InkWell(
-                          onTap: () {
-                            MaterialPageRoute signUpRoute = MaterialPageRoute(
-                                builder: (BuildContext context) => SignUp());
-                            Navigator.of(context).push(signUpRoute);
-                          },
-                          child: Container(
-                            width: deviceData.size.width,
-                            child: Material(
-                              borderRadius: BorderRadius.circular(10.0),
-                              color:Color.fromRGBO(240, 102, 74, 0.3),
-                              child: Container(
-                                padding: EdgeInsets.all(5),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    TitleText("Create New Account"),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 20,),
-                        InkWell(
-                          onTap: () {
-                            setState(() {
-                              loading=true;
-                            });
-                            print(loading);
-                            _auth.signInAnon();
-                          },
-                          child: Container(
-                            width: deviceData.size.width,
-                            child: Material(
-                              borderRadius: BorderRadius.circular(10.0),
-                              color: Color.fromRGBO(189, 189, 189, 1),
-                              child: Container(
-                                padding: EdgeInsets.all(5),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    WhiteTitleText("Log in as Guest"),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
+                        SubTitleText(error),
                       ],
                     ),
                   ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:aboutlx/object/event.dart';
+import 'package:aboutlx/models/event.dart';
 import 'package:aboutlx/component/text_style.dart';
 import 'package:intl/intl.dart';
 

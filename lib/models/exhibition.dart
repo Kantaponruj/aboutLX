@@ -1,14 +1,20 @@
-import 'package:aboutlx/object/event.dart';
+import 'package:aboutlx/models/event.dart';
 
 class Exhibition{
   String name;
   String detail;
   Date date;
   String pic;
-  List<Event> events;
+  List<Event> events = new List<Event>();
 
-  Exhibition(this.name, this.detail, this.date, this.pic, this.events);
-
+  Exhibition(this.name, this.detail, this.date, this.pic, List<Event> allEvent){
+    for(Event e in allEvent){
+      if(e.exhibition==name){
+        print(e.name);
+        events.add(e);
+      }
+    }
+  }
 }
 
 class Date{

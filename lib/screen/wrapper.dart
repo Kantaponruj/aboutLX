@@ -12,8 +12,11 @@ class Wrapper extends StatelessWidget {
     if(user==null){
       return Authenticate();
     }
+    else if(user.isAnon){
+      return Home(isAnon: user.isAnon,);
+    }
     else{
-      return Home();
+      return Home(isAnon: user.isAnon,);
     }
   }
 }

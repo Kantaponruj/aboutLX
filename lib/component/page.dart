@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:aboutlx/component/text_style.dart';
-import 'package:aboutlx/object/exhibition.dart';
+import 'package:aboutlx/models/exhibition.dart';
 import 'package:aboutlx/screen/exhibitionPage.dart';
 import 'package:aboutlx/component/eventListview.dart';
 

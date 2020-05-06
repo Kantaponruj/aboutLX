@@ -1,7 +1,7 @@
 import 'package:aboutlx/models/user.dart';
+import 'package:aboutlx/screen/home.dart';
 import 'package:aboutlx/screen/wrapper.dart';
 import 'package:aboutlx/services/auth.dart';
-import 'package:aboutlx/screen/history.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

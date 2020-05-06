@@ -1,21 +1,28 @@
 import 'dart:ui';
 import 'package:aboutlx/component/drawer.dart';
-import 'package:aboutlx/object/event.dart';
+import 'package:aboutlx/models/event.dart';
+import 'package:aboutlx/models/user.dart';
 import 'package:aboutlx/services/auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:aboutlx/component/text_style.dart';
-import 'package:aboutlx/object/exhibition.dart';
+import 'package:aboutlx/models/exhibition.dart';
 import 'package:aboutlx/component/page.dart';
 
 class Home extends StatefulWidget {
+  bool isAnon;
+  Home({this.isAnon});
   @override
-  _homeState createState() => _homeState();
+  _homeState createState() => _homeState(isAnon: isAnon);
 }
 
 class _homeState extends State<Home> {
 
   final AuthService _auth = AuthService();
+  bool isAnon;
+  User user ;
+
+  _homeState({this.isAnon});
 
   static String s = "Yes, it is testYes, it is testYes, it is testYes, it is testYes, it is testYes, it is test Yes, it is testYes, it is testYes, it is testYes, it is testYes, it is testYes, it is test";
   static List<Exhibition> e = [
@@ -38,11 +45,17 @@ class _homeState extends State<Home> {
   final controller = PageController(initialPage: 0,);
   String date= e[0].date.monthInName()+", "+e[0].date.year.toString();
 
-  
+  @override
+  void initState() {
+    super.initState();
+    _auth.signInAnon();
+    print("Auto anon");
+  }
+
   @override
   Widget build(BuildContext context) {
     var deviceData = MediaQuery.of(context);
-    print("build");
+    print("re build");
     return Scaffold(
       backgroundColor: Colors.white,
       
@@ -77,7 +90,7 @@ class _homeState extends State<Home> {
           ),
         ],
       ),
-      drawer: DrawerMenu(),
+      drawer: DrawerMenu(isAnon),
       
       body: Container(
         child: Column(

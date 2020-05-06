@@ -6,7 +6,7 @@ class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   User _userFromFirebaseUser(FirebaseUser user){
-    return user != null ? User(uid: user.uid) : null;
+    return user != null ? User(uid: user.uid,isAnon: user.isAnonymous) : null;
   }
 
   // auth change user stream
@@ -19,6 +19,7 @@ class AuthService {
     try{
       AuthResult result = await _auth.signInAnonymously();
       FirebaseUser user = result.user;
+      print(user.email);
       return _userFromFirebaseUser(user);
     }catch(e){
       print(e.toString());
@@ -26,8 +27,28 @@ class AuthService {
     }
   }
   // sign in email and password
-
+  Future signIn(String email, String password) async{
+    try{
+      AuthResult result = await _auth.signInWithEmailAndPassword(email: email, password: password);
+      FirebaseUser user = result.user;
+      print(user.email);
+      return _userFromFirebaseUser(user);
+    }catch(e){
+      print(e.toString());
+      return null;
+    }
+  }
   // register with email and password
+  Future register(String email, String password) async{
+    try{
+      AuthResult result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+      FirebaseUser user = result.user;
+      return _userFromFirebaseUser(user);
+    }catch(e){
+      print(e.toString());
+      return null;
+    }
+  }
 
   // logout
   Future logOut() async{
