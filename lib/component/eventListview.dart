@@ -3,8 +3,10 @@ import 'package:aboutlx/models/exhibition.dart';
 import 'package:aboutlx/component/text_style.dart';
 import 'package:aboutlx/screen/eventPage.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'package:aboutlx/models/event.dart';
 
-class EventListView extends StatelessWidget {
+class EventListView extends StatefulWidget {
 
   var deviceData;
   Exhibition exhibition;
@@ -14,15 +16,23 @@ class EventListView extends StatelessWidget {
   }
 
   @override
+  _EventListViewState createState() => _EventListViewState();
+}
+
+class _EventListViewState extends State<EventListView> {
+  @override
   Widget build(BuildContext context) {
+
+    final events = Provider.of<List<Event>>(context);
+
     return ListView.builder(
       scrollDirection: Axis.horizontal,
-      itemExtent: deviceData.size.width,
-      itemCount: exhibition.events.length,
+      itemExtent: widget.deviceData.size.width,
+      itemCount: widget.exhibition.events.length,
       itemBuilder: (context, index) => InkWell(
         onTap: () {
           MaterialPageRoute eventPageRoute = MaterialPageRoute(
-              builder: (BuildContext context) => eventPage(exhibition.events[index],deviceData));
+              builder: (BuildContext context) => eventPage(widget.exhibition.events[index],widget.deviceData));
           Navigator.of(context).push(eventPageRoute);
         },
         child: Container(
@@ -36,12 +46,12 @@ class EventListView extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  WhiteTitleText(exhibition.events[index].name),
+                  WhiteTitleText(widget.exhibition.events[index].name),
                   WhiteTitleText(DateFormat.Hm()
-                      .format(exhibition.events[index].start) +
+                      .format(widget.exhibition.events[index].start) +
                       " to " +
                       DateFormat.Hm()
-                          .format(exhibition.events[index].end)),
+                          .format(widget.exhibition.events[index].end)),
                 ],
               ),
             ),

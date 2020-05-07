@@ -1,19 +1,29 @@
 import 'package:aboutlx/models/event.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Exhibition{
+  String id;
   String name;
   String detail;
   Date date;
   String pic;
   List<Event> events = new List<Event>();
 
-  Exhibition(this.name, this.detail, this.date, this.pic, List<Event> allEvent){
+  Exhibition(this.id, this.name, this.detail, this.date, this.pic);
+
+  setEvents(List<Event> allEvent){
     for(Event e in allEvent){
-      if(e.exhibition==name){
+      if(e.exhibition==id){
         print(e.name);
         events.add(e);
       }
     }
+  }
+
+  addToDB(){
+    Firestore.instance.collection('exhibitions').add({
+
+    });
   }
 }
 
