@@ -6,7 +6,7 @@ class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   User _userFromFirebaseUser(FirebaseUser user){
-    return user != null ? User(uid: user.uid,isAnon: user.isAnonymous) : null;
+    return user != null ? User(uid: user.uid,isAnon: user.isAnonymous, email: user.email) : null;
   }
 
   // auth change user stream
@@ -19,7 +19,8 @@ class AuthService {
     try{
       AuthResult result = await _auth.signInAnonymously();
       FirebaseUser user = result.user;
-      print(user.email);
+      print("auth Anon\n"+user.isAnonymous.toString());
+      print(user.uid+"\nautn Anon");
       return _userFromFirebaseUser(user);
     }catch(e){
       print(e.toString());

@@ -145,6 +145,7 @@ class _SignUpState extends State<SignUp> {
                               dynamic result = await _auth.register(email, password);
                               if(result==null){
                                 setState(() {
+                                  loading = false;
                                   error = "Invalid E-mail or It is already use";
                                 });
                               }

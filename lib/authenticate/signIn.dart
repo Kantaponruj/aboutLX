@@ -103,6 +103,7 @@ class _SignInState extends State<SignIn> {
                               if(result==null){
                                 setState(() {
                                   error = "E-mail and password are not match";
+                                  loading = false;
                                 });
                               }
                               else{

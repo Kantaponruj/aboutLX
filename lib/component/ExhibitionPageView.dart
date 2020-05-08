@@ -7,11 +7,10 @@ import 'package:aboutlx/models/exhibition.dart';
 import 'package:aboutlx/screen/exhibitionPage.dart';
 import 'package:aboutlx/component/eventListview.dart';
 
-class ExPage extends StatelessWidget {
-  int page;
+class ExhibitionPageView extends StatelessWidget {
   var deviceData;
   Exhibition exhibition;
-  ExPage(Exhibition e, var deviceData) {
+  ExhibitionPageView(Exhibition e, var deviceData) {
     exhibition = e;
     this.deviceData = deviceData;
   }
@@ -43,7 +42,7 @@ class ExPage extends StatelessWidget {
                         ),
                         child: Container(
                           width: deviceData.size.width,
-                          height: deviceData.size.height*0.25,
+                          height: deviceData.size.height*0.35-60,
                           decoration: BoxDecoration(
                             image: DecorationImage(
                                 image: AssetImage(exhibition.pic),
@@ -53,25 +52,13 @@ class ExPage extends StatelessWidget {
                       ),
                       Container(
                           padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                          height: deviceData.size.height*0.05,
                           child: WhiteTitleText(
                             exhibition.name,
                           )),
                     ],
                   )),
             ),
-          ),
-          Container(
-            margin: EdgeInsets.fromLTRB(30, 0, 0, 0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                SubTitleText("Event of this exhibition"),
-                TitleText(exhibition.date.monthInName() + " " + exhibition.date.day.toString() + ", " + exhibition.date.year.toString()),
-              ],
-            ),
-          ),
-          Expanded(
-            child: EventListView(exhibition,deviceData)
           ),
         ],
       ),

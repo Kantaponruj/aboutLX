@@ -23,8 +23,6 @@ class _EventListViewState extends State<EventListView> {
   @override
   Widget build(BuildContext context) {
 
-    final events = Provider.of<List<Event>>(context);
-
     return ListView.builder(
       scrollDirection: Axis.horizontal,
       itemExtent: widget.deviceData.size.width,

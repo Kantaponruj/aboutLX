@@ -1,14 +1,15 @@
+import 'package:aboutlx/models/user.dart';
 import 'package:aboutlx/screen/history.dart';
 import 'package:aboutlx/services/auth.dart';
 import 'package:flutter/material.dart';
 
 class DrawerMenu extends StatelessWidget {
   final AuthService _auth = AuthService();
-  bool isAnon;
-  DrawerMenu(this.isAnon);
+  User user;
+  DrawerMenu(this.user);
 
   Widget LoginAndOut(){
-    if(isAnon){
+    if(user.isAnon){
       return ListTile(
         leading: Icon(Icons.power_settings_new),
         title: Text('Login with account'),
@@ -59,7 +60,7 @@ class DrawerMenu extends StatelessWidget {
                       )
                   ),
                   new Text(
-                    'Guest',
+                    user.isAnon ? "Guest":user.email,
                     style:
                         TextStyle(fontWeight: FontWeight.w500, fontSize: 20.0),
                   ),

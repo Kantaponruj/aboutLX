@@ -5,42 +5,55 @@ import'package:cloud_firestore/cloud_firestore.dart';
 class DatabaseService{
 
   final String uid;
-  final bool isAnon;
 
-  DatabaseService({this.uid,this.isAnon});
-
+  DatabaseService({this.uid});
 
   final CollectionReference eventCollection = Firestore.instance.collection('events');
   List<Event> _eventFromSnapshot(QuerySnapshot snapshot){
     return snapshot.documents.map((doc){
       return Event(
-        doc.data["name"],
-        doc.data["detail"],
-        doc.data["exhibition"],
-        (doc.data["start"] as Timestamp).toDate(),
-        (doc.data["end"] as Timestamp).toDate(),
-        doc.data["room"],
+        id : doc.documentID,
+        name : doc.data["name"],
+        detail : doc.data["detail"],
+        exhibition : doc.data["exhibition"],
+        start : (doc.data["start"] as Timestamp).toDate(),
+        end : (doc.data["end"] as Timestamp).toDate(),
+        room : doc.data["room"],
       );
     }).toList();
   }
   Stream<List<Event>> get events{
-    return eventCollection.snapshots().map(_eventFromSnapshot);
+    return eventCollection.orderBy('start').snapshots().map(_eventFromSnapshot);
   }
 
-  final CollectionReference exhibitionCollection = Firestore.instance.collection('exhibitions').orderBy('date');
+  //exhibition list from snapshot
+  final CollectionReference exhibitionCollection = Firestore.instance.collection('exhibitions');
+
   List<Exhibition> _exhibitionFromSnapshot(QuerySnapshot snapshot){
     return snapshot.documents.map((doc){
       return Exhibition(
-        doc.documentID,
-        doc.data["name"],
-        doc.data["detail"],
-        doc.data["date"],
-        "images/DSC_0019.jpg",
+        id : doc.documentID,
+        name :doc.data["name"],
+        detail : doc.data["detail"],
+        date : (doc.data["date"] as Timestamp).toDate(),
+        pic :"images/DSC_0019.jpg",
       );
     }).toList();
   }
   Stream<List<Exhibition>> get exhibitions{
-    return exhibitionCollection.snapshots().map(_exhibitionFromSnapshot);
+    return exhibitionCollection.orderBy('date').snapshots().map(_exhibitionFromSnapshot);
+  }
+
+  //join unjoin joinlist
+  final CollectionReference joinCollection = Firestore.instance.collection('join');
+  Future join(String evnetID)async{
+    return await joinCollection.add({
+      'user' : uid,
+      'event' : evnetID,
+    });
+  }
+  Future unJoin(String evnetID)async{
+    return await joinCollection.document();
   }
 
 

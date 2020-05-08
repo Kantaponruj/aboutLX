@@ -36,7 +36,7 @@ class _exhibitionPageState extends State<exhibitionPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     TitleText.withSize(exhibition.name,20),
-                    SubTitleText(exhibition.date.monthInName() + " " + exhibition.date.day.toString() + ", " + exhibition.date.year.toString()),
+                    SubTitleText(exhibition.monthInName() + " " + exhibition.date.day.toString() + ", " + exhibition.date.year.toString()),
                     SizedBox(height: 10,),
                     Text(exhibition.detail),
                   ],
