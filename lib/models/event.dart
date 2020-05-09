@@ -1,3 +1,4 @@
+import 'package:aboutlx/models/JoinedEvent.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Event{
@@ -10,6 +11,23 @@ class Event{
   String room;
 
   Event({this.id, this.name, this.detail, this.exhibition, this.start, this.end, this.room});
+
+   Future<int> getLike()async{
+    var respectsQuery = Firestore.instance.collection('join').where('event', isEqualTo: id);
+    var querySnapshot = await respectsQuery.getDocuments();
+    int totalEquals = querySnapshot.documents.length;
+    print(id);
+    print(name + totalEquals.toString());
+    return totalEquals;
+  }
+
+  JoinedEvent getUserJoin(List<JoinedEvent> alljoin){
+    for(JoinedEvent e in alljoin){
+      if(id==e.event)
+        return e;
+    }
+    return null;
+  }
 
 //  addToDB() async{
 //    await Firestore.instance.collection('events').add({

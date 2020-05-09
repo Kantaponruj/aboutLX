@@ -1,3 +1,4 @@
+import 'package:aboutlx/models/JoinedEvent.dart';
 import 'package:aboutlx/models/event.dart';
 import 'package:aboutlx/models/exhibition.dart';
 import'package:cloud_firestore/cloud_firestore.dart';
@@ -52,9 +53,18 @@ class DatabaseService{
       'event' : evnetID,
     });
   }
-  Future unJoin(String evnetID)async{
-    return await joinCollection.document();
+  Future unJoin(JoinedEvent evnet)async{
+    return await joinCollection.document(evnet.id).delete();
   }
-
-
+  List<JoinedEvent> _joinedEventFromSnapshot(QuerySnapshot snapshot){
+    return snapshot.documents.map((doc){
+      return JoinedEvent(
+        id : doc.documentID,
+        event :doc.data["event"],
+      );
+    }).toList();
+  }
+  Stream<List<JoinedEvent>> get joinedEvent{
+    return joinCollection.where('user',isEqualTo: uid).snapshots().map(_joinedEventFromSnapshot);
+  }
 }

@@ -3,7 +3,6 @@ import 'package:aboutlx/component/drawer.dart';
 import 'package:aboutlx/models/event.dart';
 import 'package:aboutlx/models/user.dart';
 import 'package:aboutlx/services/auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:aboutlx/component/text_style.dart';

@@ -1,49 +1,63 @@
+import 'package:aboutlx/models/JoinedEvent.dart';
+import 'package:aboutlx/models/user.dart';
+import 'package:aboutlx/services/databaseService.dart';
 import 'package:flutter/material.dart';
 import 'package:aboutlx/models/event.dart';
 import 'package:aboutlx/component/text_style.dart';
+import 'package:aboutlx/component/JoinBotton.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+
 
 class eventPage extends StatefulWidget {
   Event event;
   var deviceData;
-  eventPage(this.event,this.deviceData);
+  JoinedEvent join;
+  eventPage(this.event,this.deviceData,this.join);
   @override
-  _eventPageState createState() => _eventPageState(event,deviceData);
+  _eventPageState createState() => _eventPageState(event,deviceData,join);
 }
 
 class _eventPageState extends State<eventPage> {
   Event event;
   var deviceData;
-  _eventPageState(this.event,this.deviceData);
-
+  JoinedEvent join;
+  _eventPageState(this.event,this.deviceData,this.join);
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
+    final user = Provider.of<User>(context);
+//    final joinEvent = Provider.of<List<JoinedEvent>>(context);
+    return StreamProvider<List<JoinedEvent>>.value(
+      value: DatabaseService(uid: user.uid).joinedEvent,
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
 //        backgroundColor: Colors.white,
-        elevation: 0.0,
-        title: Text("Event Info"),
-      ),
-      body: Container(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Container(
-                padding: EdgeInsets.fromLTRB(30, 20, 30, 0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    TitleText.withSize(event.name,20),
-                    SubTitleText(DateFormat.Hm().format(event.start)+" - "+DateFormat.Hm().format(event.end)),
-                    SubTitleText("Room: "+event.room),
-                    SizedBox(height: 10,),
-                    Text(event.detail),
-                  ],
+          elevation: 0.0,
+          title: Text("Event Info"),
+        ),
+        body: Container(
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Container(
+                  padding: EdgeInsets.fromLTRB(30, 20, 30, 0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      TitleText.withSize(event.name,20),
+                      SubTitleText(DateFormat.Hm().format(event.start)+" - "+DateFormat.Hm().format(event.end)),
+                      SubTitleText("Room: "+event.room),
+                      SizedBox(height: 10,),
+                      Text(event.detail),
+                      SizedBox(height: 20,),
+                      JoinBotton(event: event,deviceData: deviceData,user: user,),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

@@ -1,10 +1,12 @@
+import 'package:aboutlx/models/JoinedEvent.dart';
+import 'package:aboutlx/models/user.dart';
+import 'package:aboutlx/services/databaseService.dart';
 import 'package:flutter/material.dart';
 import 'package:aboutlx/models/exhibition.dart';
 import 'package:aboutlx/component/text_style.dart';
 import 'package:aboutlx/screen/eventPage.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:aboutlx/models/event.dart';
 
 class EventListView extends StatefulWidget {
 
@@ -22,15 +24,38 @@ class EventListView extends StatefulWidget {
 class _EventListViewState extends State<EventListView> {
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<User>(context);
+    return StreamProvider<List<JoinedEvent>>.value(
+      value : DatabaseService(uid: user.uid).joinedEvent,
+      child: EventItem(widget.exhibition,widget.deviceData)
+    );
+  }
+}
 
+class EventItem extends StatelessWidget {
+
+  var deviceData;
+  Exhibition exhibition;
+  EventItem(Exhibition e, var deviceData) {
+    exhibition = e;
+    this.deviceData = deviceData;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final joinedEvent = Provider.of<List<JoinedEvent>>(context);
     return ListView.builder(
       scrollDirection: Axis.horizontal,
-      itemExtent: widget.deviceData.size.width,
-      itemCount: widget.exhibition.events.length,
+      itemExtent: deviceData.size.width,
+      itemCount: exhibition.events.length,
       itemBuilder: (context, index) => InkWell(
         onTap: () {
+          for(JoinedEvent e in joinedEvent){
+            print(e.event
+            );
+          }
           MaterialPageRoute eventPageRoute = MaterialPageRoute(
-              builder: (BuildContext context) => eventPage(widget.exhibition.events[index],widget.deviceData));
+              builder: (BuildContext context) => eventPage(exhibition.events[index],deviceData,exhibition.events[index].getUserJoin(joinedEvent)));
           Navigator.of(context).push(eventPageRoute);
         },
         child: Container(
@@ -44,12 +69,9 @@ class _EventListViewState extends State<EventListView> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  WhiteTitleText(widget.exhibition.events[index].name),
-                  WhiteTitleText(DateFormat.Hm()
-                      .format(widget.exhibition.events[index].start) +
-                      " to " +
-                      DateFormat.Hm()
-                          .format(widget.exhibition.events[index].end)),
+                  WhiteTitleText(exhibition.events[index].name),
+                  WhiteTitleText(DateFormat.Hm().format(exhibition.events[index].start) + " to " + DateFormat.Hm().format(exhibition.events[index].end)),
+//                  SubTitleText(exhibition.events[index].getLike().toString())
                 ],
               ),
             ),
@@ -59,3 +81,6 @@ class _EventListViewState extends State<EventListView> {
     );
   }
 }
+
+
+
