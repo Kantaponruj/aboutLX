@@ -10,10 +10,11 @@ import 'package:provider/provider.dart';
 
 
 class eventPage extends StatefulWidget {
+  String exhibition;
   Event event;
   var deviceData;
   JoinedEvent join;
-  eventPage(this.event,this.deviceData,this.join);
+  eventPage(this.event,this.deviceData,this.join,this.exhibition);
   @override
   _eventPageState createState() => _eventPageState(event,deviceData,join);
 }
@@ -26,7 +27,6 @@ class _eventPageState extends State<eventPage> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
-//    final joinEvent = Provider.of<List<JoinedEvent>>(context);
     return StreamProvider<List<JoinedEvent>>.value(
       value: DatabaseService(uid: user.uid).joinedEvent,
       child: Scaffold(
@@ -49,6 +49,7 @@ class _eventPageState extends State<eventPage> {
                       TitleText.withSize(event.name,20),
                       SubTitleText(DateFormat.Hm().format(event.start)+" - "+DateFormat.Hm().format(event.end)),
                       SubTitleText("Room: "+event.room),
+                      SubTitleText("Exhibiton: "+widget.exhibition),
                       SizedBox(height: 10,),
                       Text(event.detail),
                       SizedBox(height: 20,),

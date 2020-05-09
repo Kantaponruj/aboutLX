@@ -50,12 +50,9 @@ class EventItem extends StatelessWidget {
       itemCount: exhibition.events.length,
       itemBuilder: (context, index) => InkWell(
         onTap: () {
-          for(JoinedEvent e in joinedEvent){
-            print(e.event
-            );
-          }
           MaterialPageRoute eventPageRoute = MaterialPageRoute(
-              builder: (BuildContext context) => eventPage(exhibition.events[index],deviceData,exhibition.events[index].getUserJoin(joinedEvent)));
+              builder: (BuildContext context) => eventPage(exhibition.events[index],deviceData,exhibition.events[index].getUserJoin(joinedEvent),exhibition.name)
+          );
           Navigator.of(context).push(eventPageRoute);
         },
         child: Container(

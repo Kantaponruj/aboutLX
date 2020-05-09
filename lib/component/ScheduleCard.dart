@@ -6,11 +6,11 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 
-class historyCard extends StatelessWidget {
+class ScheduleCard extends StatelessWidget {
 
   Exhibition exhibition;
 
-  historyCard({this.exhibition});
+  ScheduleCard({this.exhibition});
 
   @override
   Widget build(BuildContext context) {
@@ -48,8 +48,8 @@ class historyCard extends StatelessWidget {
                   ),
                 ),
               ],
-          ),
-            )
+            ),
+          )
       ),
     );
   }

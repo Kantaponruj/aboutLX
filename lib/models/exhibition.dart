@@ -1,5 +1,6 @@
 import 'package:aboutlx/models/event.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'JoinedEvent.dart';
 
 class Exhibition{
   final String id;
@@ -14,9 +15,20 @@ class Exhibition{
   setEvents(List<Event> allEvent){
     events = new List<Event>();
     for(Event e in allEvent){
-      print(e.name);
       if(e.exhibition==id){
         events.add(e);
+      }
+    }
+  }
+
+  setJoinedEvents(List<Event> allEvent,List<JoinedEvent> allJoinEvent){
+    events = new List<Event>();
+    for(Event e in allEvent){
+      for(JoinedEvent je in allJoinEvent){
+        if(je.event==e.id && e.exhibition==id){
+          events.add(e);
+          break;
+        }
       }
     }
   }

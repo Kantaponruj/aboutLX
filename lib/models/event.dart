@@ -1,6 +1,8 @@
 import 'package:aboutlx/models/JoinedEvent.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import 'exhibition.dart';
+
 class Event{
   String id;
   String name;
@@ -19,6 +21,13 @@ class Event{
     print(id);
     print(name + totalEquals.toString());
     return totalEquals;
+  }
+
+  String getExhibitionName(List<Exhibition> ex){
+    for(Exhibition e in ex){
+      if(exhibition==e.id)
+        return e.name;
+    }
   }
 
   JoinedEvent getUserJoin(List<JoinedEvent> alljoin){
