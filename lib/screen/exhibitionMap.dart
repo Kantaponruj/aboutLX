@@ -1,6 +1,7 @@
 import 'package:aboutlx/screen/KMUTTmap.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:getflutter/components/search_bar/gf_search_bar.dart';
 import 'package:photo_view/photo_view.dart';
 
 
@@ -13,6 +14,38 @@ class ControllerPhotoViewPage extends StatefulWidget {
 class _ControllerPhotoViewPageState extends State<ControllerPhotoViewPage> {
   PhotoViewController photoViewController;
   String _selectedMap = null;
+
+  Widget popupMennuButton() {
+    return PopupMenuButton<String>(
+      icon: Icon(Icons.add,size: 30.0),
+      itemBuilder: (BuildContext context) => <PopupMenuItem<String>>[
+        PopupMenuItem<String>(
+          value: "Exhibition",
+          child: Text("Exhibition Map"),
+        ),
+
+        PopupMenuItem<String>(
+          value: "KMUTT",
+          child: Text("KMUTT Map"),
+        ),
+
+      ],
+      onSelected: (answer){
+        print(answer);
+        if(answer == "Exhibition"){
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ControllerPhotoViewPage()),
+            );
+        }else if(answer == "KMUTT"){
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => KMUTTmap()),
+            );
+        }
+      },
+    );
+  }
 
   @override
   void initState() {
@@ -32,28 +65,28 @@ class _ControllerPhotoViewPageState extends State<ControllerPhotoViewPage> {
       appBar: AppBar(
         title: Text('Exhibition Map'),
         actions: <Widget>[
-
-          DropdownButton(
-                value: _selectedMap,
-                items: _dropDownItem(),
-                onChanged: (value) {
-                  _selectedMap=value;
-                  switch(value){
-                    case "Exhibition Map" :
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => ControllerPhotoViewPage()),
-                      );
-                      break;
-                    case "KMUTT Map" :
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => KMUTTmap()),
-                      );
-                      break;
-                  }
-                },
-          )
+          popupMennuButton(),
+          // DropdownButton(
+          //       value: _selectedMap,
+          //       items: _dropDownItem(),
+          //       onChanged: (value) {
+          //         _selectedMap=value;
+          //         switch(value){
+          //           case "Exhibition Map" :
+          //             Navigator.push(
+          //               context,
+          //               MaterialPageRoute(builder: (context) => ControllerPhotoViewPage()),
+          //             );
+          //             break;
+          //           case "KMUTT Map" :
+          //             Navigator.push(
+          //               context,
+          //               MaterialPageRoute(builder: (context) => KMUTTmap()),
+          //             );
+          //             break;
+          //         }
+          //       },
+          // )
         ],
       ),
       
@@ -158,4 +191,3 @@ class ClippedPhotoViewPage extends StatelessWidget {
   }
 }
 
-  

@@ -14,6 +14,38 @@ class _KMUTTmapState extends State<KMUTTmap> {
 
   List<Marker> allMarkers = [];
 
+   Widget popupMennuButton() {
+    return PopupMenuButton<String>(
+      icon: Icon(Icons.add,size: 30.0),
+      itemBuilder: (BuildContext context) => <PopupMenuItem<String>>[
+        PopupMenuItem<String>(
+          value: "Exhibition",
+          child: Text("Exhibition Map"),
+        ),
+
+        PopupMenuItem<String>(
+          value: "KMUTT",
+          child: Text("KMUTT Map"),
+        ),
+
+      ],
+      onSelected: (answer){
+        print(answer);
+        if(answer == "Exhibition"){
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ControllerPhotoViewPage()),
+            );
+        }else if(answer == "KMUTT"){
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => KMUTTmap()),
+            );
+        }
+      },
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -31,30 +63,30 @@ class _KMUTTmapState extends State<KMUTTmap> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Exhibition Map'),
+        title: Text('KMUTT Map'),
         actions: <Widget>[
-
-          DropdownButton(
-                value: _selectedMap,
-                items: _dropDownItem(),
-                onChanged: (value) {
-                  _selectedMap=value;
-                  switch(value){
-                    case "Exhibition Map" :
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => ControllerPhotoViewPage()),
-                      );
-                      break;
-                    case "KMUTT Map" :
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => KMUTTmap()),
-                      );
-                      break;
-                  }
-                },
-          )
+          popupMennuButton(),
+          // DropdownButton(
+          //       value: _selectedMap,
+          //       items: _dropDownItem(),
+          //       onChanged: (value) {
+          //         _selectedMap=value;
+          //         switch(value){
+          //           case "Exhibition Map" :
+          //             Navigator.push(
+          //               context,
+          //               MaterialPageRoute(builder: (context) => ControllerPhotoViewPage()),
+          //             );
+          //             break;
+          //           case "KMUTT Map" :
+          //             Navigator.push(
+          //               context,
+          //               MaterialPageRoute(builder: (context) => KMUTTmap()),
+          //             );
+          //             break;
+          //         }
+          //       },
+          // )
         ],
       ),
       body: Column(
