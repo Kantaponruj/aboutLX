@@ -35,7 +35,7 @@ class _scheduleState extends State<schedule> {
           child: Scaffold(
             appBar:AppBar(
               elevation: 0.0,
-              title: Text("History"),
+              title: Text("Schedule"),
             ),
             body: widget.user.isAnon ?
             Container(child: Center(child: Column(mainAxisAlignment: MainAxisAlignment.center,children: <Widget>[TitleText("Log in is required for this feature")],))) : ScheduleList(currentDate: currentDate,),

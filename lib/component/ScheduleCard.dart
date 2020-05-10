@@ -29,7 +29,7 @@ class ScheduleCard extends StatelessWidget {
                 ListTile(
                   onTap: (){
                     MaterialPageRoute eventPageRoute = MaterialPageRoute(
-                        builder: (BuildContext context) => eventPage(exhibition.events[index],deviceData,exhibition.events[index].getUserJoin(joinedEvent),exhibition.name)
+                        builder: (BuildContext context) => eventPage(exhibition.events[index],deviceData,exhibition.events[index].getUserJoin(joinedEvent),exhibition.name,false)
                     );
                     Navigator.of(context).push(eventPageRoute);
                   },

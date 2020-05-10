@@ -22,23 +22,32 @@ class EventListView extends StatefulWidget {
 }
 
 class _EventListViewState extends State<EventListView> {
+  DateTime currentDate;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    currentDate = DateTime.now();
+    currentDate = DateTime.parse(currentDate.toString().substring(0,10)+" 00:00:00");
+  }
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
     return StreamProvider<List<JoinedEvent>>.value(
       value : DatabaseService(uid: user.uid).joinedEvent,
-      child: EventItem(widget.exhibition,widget.deviceData)
+      child: EventItem(widget.exhibition,widget.deviceData,currentDate)
     );
   }
 }
 
 class EventItem extends StatelessWidget {
-
+  DateTime currentDate;
   var deviceData;
   Exhibition exhibition;
-  EventItem(Exhibition e, var deviceData) {
+  EventItem(Exhibition e, var deviceData,DateTime c) {
     exhibition = e;
     this.deviceData = deviceData;
+    currentDate = c;
   }
 
   @override
@@ -51,7 +60,9 @@ class EventItem extends StatelessWidget {
       itemBuilder: (context, index) => InkWell(
         onTap: () {
           MaterialPageRoute eventPageRoute = MaterialPageRoute(
-              builder: (BuildContext context) => eventPage(exhibition.events[index],deviceData,exhibition.events[index].getUserJoin(joinedEvent),exhibition.name)
+              builder: (BuildContext context) => eventPage(exhibition.events[index],deviceData,exhibition.events[index].getUserJoin(joinedEvent),exhibition.name,
+                  exhibition.events[index].start.compareTo(currentDate)<0
+              )
           );
           Navigator.of(context).push(eventPageRoute);
         },
