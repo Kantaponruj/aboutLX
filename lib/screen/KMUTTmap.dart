@@ -1,3 +1,4 @@
+import 'package:aboutlx/screen/exhibitionMap.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -9,6 +10,7 @@ class KMUTTmap extends StatefulWidget {
 class _KMUTTmapState extends State<KMUTTmap> {
   GoogleMapController _controller;
   GoogleMapController myController;
+  String _selectedMap = null;
 
   List<Marker> allMarkers = [];
 
@@ -28,6 +30,33 @@ class _KMUTTmapState extends State<KMUTTmap> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Exhibition Map'),
+        actions: <Widget>[
+
+          DropdownButton(
+                value: _selectedMap,
+                items: _dropDownItem(),
+                onChanged: (value) {
+                  _selectedMap=value;
+                  switch(value){
+                    case "Exhibition Map" :
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ControllerPhotoViewPage()),
+                      );
+                      break;
+                    case "KMUTT Map" :
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => KMUTTmap()),
+                      );
+                      break;
+                  }
+                },
+          )
+        ],
+      ),
       body: Column(
         children: <Widget>[
           Container(
@@ -45,6 +74,17 @@ class _KMUTTmapState extends State<KMUTTmap> {
         ]
       ),
     );
+  }
+
+  List<DropdownMenuItem<String>> _dropDownItem() {
+    List<String> maps = ['KMUTT Map','Exhibition Map'];
+    return maps.map(
+            (value) =>
+            DropdownMenuItem(
+              value: value,
+              child: Text(value),
+            )
+    ).toList();
   }
 
   void mapCreated(controller) {

@@ -1,3 +1,4 @@
+import 'package:aboutlx/screen/KMUTTmap.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:photo_view/photo_view.dart';
@@ -11,7 +12,7 @@ class ControllerPhotoViewPage extends StatefulWidget {
 
 class _ControllerPhotoViewPageState extends State<ControllerPhotoViewPage> {
   PhotoViewController photoViewController;
-  var _kmuttmap = ['KMUTT Map'];
+  String _selectedMap = null;
 
   @override
   void initState() {
@@ -32,16 +33,26 @@ class _ControllerPhotoViewPageState extends State<ControllerPhotoViewPage> {
         title: Text('Exhibition Map'),
         actions: <Widget>[
 
-          DropdownButton<String>(
-            items: _kmuttmap.map((String dropDownStringItem) {
-              return DropdownMenuItem<String>(
-                value: dropDownStringItem,
-                child: Text(dropDownStringItem),
-                );
-            }).toList(), 
-            onChanged: (String value) { 
-
-            },
+          DropdownButton(
+                value: _selectedMap,
+                items: _dropDownItem(),
+                onChanged: (value) {
+                  _selectedMap=value;
+                  switch(value){
+                    case "Exhibition Map" :
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ControllerPhotoViewPage()),
+                      );
+                      break;
+                    case "KMUTT Map" :
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => KMUTTmap()),
+                      );
+                      break;
+                  }
+                },
           )
         ],
       ),
@@ -59,6 +70,17 @@ class _ControllerPhotoViewPageState extends State<ControllerPhotoViewPage> {
         ]
       ),
     );
+  }
+
+  List<DropdownMenuItem<String>> _dropDownItem() {
+    List<String> maps = ['KMUTT Map','Exhibition Map'];
+    return maps.map(
+            (value) =>
+            DropdownMenuItem(
+              value: value,
+              child: Text(value),
+            )
+    ).toList();
   }
 
   PhotoView _buildPhotoView(BuildContext context) {
@@ -136,3 +158,4 @@ class ClippedPhotoViewPage extends StatelessWidget {
   }
 }
 
+  
