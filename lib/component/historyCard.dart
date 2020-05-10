@@ -14,6 +14,7 @@ class historyCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+<<<<<<< Updated upstream
     var deviceData = MediaQuery.of(context);
     final joinedEvent = Provider.of<List<JoinedEvent>>(context);
     return ListView.builder(
@@ -46,6 +47,21 @@ class historyCard extends StatelessWidget {
                       Text(DateFormat.Hm().format(exhibition.events[index].start) + " to " + DateFormat.Hm().format(exhibition.events[index].end))
                     ],
                   ),
+=======
+    return Container(
+        child: Column(
+      children: <Widget>[
+        Card(
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              const ListTile(
+                leading: GFAvatar(
+                  backgroundImage: AssetImage('images/DSC_0019.jpg'),
+                  shape: GFAvatarShape.square,
+                  size: 50.0,
+>>>>>>> Stashed changes
                 ),
               ],
           ),
