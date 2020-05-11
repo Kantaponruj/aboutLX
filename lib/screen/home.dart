@@ -22,7 +22,6 @@ class Home extends StatefulWidget {
 }
 
 class _homeState extends State<Home> {
-
   final AuthService _auth = AuthService();
   User user;
 
@@ -32,17 +31,22 @@ class _homeState extends State<Home> {
     super.initState();
     print("Intit state start here");
   }
+
   @override
   Widget build(BuildContext context) {
-    return StreamProvider<List<Exhibition>>.value(
-      value: DatabaseService().exhibitions,
-      child: StreamProvider<List<JoinedEvent>>.value(
-        value: DatabaseService(uid: user.uid).joinedEvent,
-        child: StreamProvider<List<Event>>.value(
-          value: DatabaseService().events,
-          child: HomeScreen(),
+    return MultiProvider(
+      providers: [
+        StreamProvider<List<Exhibition>>(
+          create: (ctx) => DatabaseService().exhibitions,
         ),
-      ),
+        StreamProvider<List<JoinedEvent>>(
+          create: (ctx) => DatabaseService(uid: user.uid).joinedEvent,
+        ),
+        StreamProvider<List<Event>>(
+          create: (ctx) => DatabaseService().events,
+        )
+      ],
+      child: HomeScreen(),
     );
   }
 }
@@ -56,15 +60,18 @@ class _HomeScreenState extends State<HomeScreen> {
   DateTime currentDate;
   Icon searchIcon = Icon(Icons.search);
   Widget searchInput = Text("");
-  final controller = PageController(initialPage: 0,);
-  int p=0;
+  final controller = PageController(
+    initialPage: 0,
+  );
+  int p = 0;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     currentDate = DateTime.now();
-    currentDate = DateTime.parse(currentDate.toString().substring(0,10)+" 00:00:00");
+    currentDate =
+        DateTime.parse(currentDate.toString().substring(0, 10) + " 00:00:00");
   }
 
   @override
@@ -73,10 +80,13 @@ class _HomeScreenState extends State<HomeScreen> {
     final exhibitions = Provider.of<List<Exhibition>>(context);
     final joinedEvents = Provider.of<List<JoinedEvent>>(context);
     final events = Provider.of<List<Event>>(context);
-    for(int i=0 ; i<exhibitions.length ; i++){
+    print(exhibitions.length);
+    for (int i = 0; i < exhibitions.length; i++) {
       exhibitions[i].setEvents(events);
     }
-    String date = exhibitions[p].monthInName()+", "+exhibitions[p].date.year.toString();
+    String date = exhibitions[p].monthInName() +
+        ", " +
+        exhibitions[p].date.year.toString();
     final user = Provider.of<User>(context);
     return Scaffold(
         backgroundColor: Colors.white,
@@ -88,9 +98,15 @@ class _HomeScreenState extends State<HomeScreen> {
 
           actions: <Widget>[
             IconButton(
-              onPressed: (){
+              onPressed: () {
                 setState(() {
-                  showSearch(context: context, delegate: DataSearch(events: events,exhibitions: exhibitions,currentDate: currentDate,joinedEvent: joinedEvents));
+                  showSearch(
+                      context: context,
+                      delegate: DataSearch(
+                          events: events,
+                          exhibitions: exhibitions,
+                          currentDate: currentDate,
+                          joinedEvent: joinedEvents));
 //                  if(this.searchIcon.icon == Icons.search)
 //                  {
 //                    this.searchIcon = Icon(Icons.cancel);
@@ -112,7 +128,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
         drawer: DrawerMenu(user),
-
         body: Container(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -128,18 +143,18 @@ class _HomeScreenState extends State<HomeScreen> {
                 margin: EdgeInsets.fromLTRB(30, 10, 0, 0),
               ),
               SizedBox(
-                height: deviceData.size.height*0.40,
+                height: deviceData.size.height * 0.40,
                 child: PageView.builder(
-                  onPageChanged: (index){
+                  onPageChanged: (index) {
                     setState(() {
-                      p=index;
+                      p = index;
                       print(exhibitions[index].date);
                     });
                   },
                   controller: controller,
                   itemCount: exhibitions.length,
-                  itemBuilder: (context,index){
-                    return ExhibitionPageView(exhibitions[index],deviceData);
+                  itemBuilder: (context, index) {
+                    return ExhibitionPageView(exhibitions[index], deviceData);
                   },
                 ),
               ),
@@ -149,16 +164,17 @@ class _HomeScreenState extends State<HomeScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     SubTitleText("Event of this exhibition"),
-                    TitleText(exhibitions[p].monthInName() + " " + exhibitions[p].date.day.toString() + ", " + exhibitions[p].date.year.toString()),
+                    TitleText(exhibitions[p].monthInName() +
+                        " " +
+                        exhibitions[p].date.day.toString() +
+                        ", " +
+                        exhibitions[p].date.year.toString()),
                   ],
                 ),
               ),
-              Expanded(
-                  child: EventListView(exhibitions[p],deviceData)
-              ),
+              Expanded(child: EventListView(exhibitions[p], deviceData)),
             ],
           ),
-        )
-    );
+        ));
   }
 }

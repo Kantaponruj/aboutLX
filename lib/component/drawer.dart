@@ -1,6 +1,7 @@
 import 'package:aboutlx/models/user.dart';
 import 'package:aboutlx/screen/exhibitionMap.dart';
 import 'package:aboutlx/screen/history.dart';
+import 'package:aboutlx/screen/qrcodeScanner.dart';
 import 'package:aboutlx/screen/schedule.dart';
 import 'package:aboutlx/services/auth.dart';
 import 'package:flutter/material.dart';
@@ -87,6 +88,7 @@ class DrawerMenu extends StatelessWidget {
               title: Text('QR Code'),
               onTap: () {
                 Navigator.of(context).pop();
+                Navigator.push(context, MaterialPageRoute(builder: (context) => qrcodeScanner()));
               },
             ),
             ListTile(
