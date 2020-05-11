@@ -1,4 +1,5 @@
 import 'package:aboutlx/screen/KMUTTmap.dart';
+import 'package:aboutlx/screen/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:getflutter/components/search_bar/gf_search_bar.dart';
@@ -47,6 +48,38 @@ class _ControllerPhotoViewPageState extends State<ControllerPhotoViewPage> {
     );
   }
 
+  Widget popupMenuButton() {
+    return PopupMenuButton<String>(
+      // icon: Icon(Icons.add,size: 30.0),
+      itemBuilder: (BuildContext context) => <PopupMenuItem<String>>[
+        PopupMenuItem<String>(
+          value: "A01",
+          child: Text("A01"),
+        ),
+
+        PopupMenuItem<String>(
+          value: "A02",
+          child: Text("A02"),
+        ),
+
+      ],
+      onSelected: (answer){
+        print(answer);
+        if(answer == "A01"){
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => KMUTTmap()),
+            );
+        }else if(answer == "A02"){
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => KMUTTmap()),
+            );
+        }
+      },
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -65,6 +98,7 @@ class _ControllerPhotoViewPageState extends State<ControllerPhotoViewPage> {
       appBar: AppBar(
         title: Text('Exhibition Map'),
         actions: <Widget>[
+          
           popupMennuButton(),
           // DropdownButton(
           //       value: _selectedMap,
@@ -98,6 +132,8 @@ class _ControllerPhotoViewPageState extends State<ControllerPhotoViewPage> {
             children: <Widget>[
               _buildScaleInfo(),
               _buildResetScaleButton(),
+              Text('Select Room'),
+              popupMenuButton(),
             ],
           )
         ]
@@ -108,6 +144,17 @@ class _ControllerPhotoViewPageState extends State<ControllerPhotoViewPage> {
   List<DropdownMenuItem<String>> _dropDownItem() {
     List<String> maps = ['KMUTT Map','Exhibition Map'];
     return maps.map(
+            (value) =>
+            DropdownMenuItem(
+              value: value,
+              child: Text(value),
+            )
+    ).toList();
+  }
+
+  List<DropdownMenuItem<String>> _dropDownItem2() {
+    List<String> rooms = ['A01','A02','A03','A04','A05'];
+    return rooms.map(
             (value) =>
             DropdownMenuItem(
               value: value,
