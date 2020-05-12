@@ -1,7 +1,6 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:barcode_scan/barcode_scan.dart';
-import 'package:flutter/services.dart';
+import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:qr_code_scanner/qr_scanner_overlay_shape.dart';
 
 class qrcodeScanner extends StatefulWidget {
   @override
@@ -9,60 +8,48 @@ class qrcodeScanner extends StatefulWidget {
 }
 
 class _qrcodeScannerState extends State<qrcodeScanner> {
-
-  @override
-  initState() {
-    super.initState();
-  }
+  GlobalKey qrKey = GlobalKey();
+  var qrText = "";
+  QRViewController controller;
 
   @override
   Widget build(BuildContext context) {
-
-    var result = "Hey";
-
-  Future<void> _scanQR() async {
-    try {
-      var qrresult = await BarcodeScanner.scan();
-      setState(() {
-        result = qrresult.toString();
-      });
-    } on PlatformException catch (ex) {
-      if (ex.code == BarcodeScanner.cameraAccessDenied) {
-        setState(() {
-          result = "Camera permission was denied";
-        });
-      } else {
-        setState(() {
-          result = "Unknown Error $ex";
-        });
-      }
-    } on FormatException {
-      setState(() {
-        result = "You pressed the back button before scanning anything";
-      });
-    } catch (ex) {
-      setState(() {
-        result = "Unknown Error $ex";
-      });
-    }
+    return Scaffold(
+      body: Column(
+        children: <Widget>[
+          Expanded(
+              flex: 5,
+              child: QRView(
+                  key: qrKey,
+                  overlay: QrScannerOverlayShape(
+                    borderRadius: 10,
+                    borderColor: Colors.red,
+                    borderLength: 30,
+                    borderWidth: 10,
+                    cutOutSize: 300,
+                  ),
+                  onQRViewCreated: _onQRViewCreate)),
+          Expanded(
+            flex: 1,
+            child: Center(child: Text('Scan Result: $qrText')),
+          )
+        ],
+      ),
+    );
   }
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("QR Scanner"),
-      ),
-      body: Center(
-        child: Text(
-         result,
-          style: new TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold),
-        ),
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        icon: Icon(Icons.camera_alt),
-        label: Text("Scan"),
-        onPressed: _scanQR,
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-    );
+  @override
+  void dispose() {
+    controller?.dispose();
+    super.dispose();
+  }
+
+  void _onQRViewCreate(QRViewController controller) {
+    this.controller = controller;
+    controller.scannedDataStream.listen((scanData) {
+      setState(() {
+        qrText = scanData;
+      });
+    });
   }
 }
