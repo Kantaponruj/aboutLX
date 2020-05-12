@@ -113,7 +113,7 @@ class _KMUTTmapState extends State<KMUTTmap> {
       onTap: () {
         print('Marker Tapped');
       },
-      position: LatLng(13.649497, 100.492955)
+      position: LatLng(51.5074, 0.1278)
     ));
   }
 
@@ -162,7 +162,7 @@ class _KMUTTmapState extends State<KMUTTmap> {
             width: MediaQuery.of(context).size.width,
             child: GoogleMap(
               initialCameraPosition: CameraPosition(
-                target: LatLng(13.649497, 100.492955),
+                target: LatLng(51.5074, 0.1278),
                 zoom: 12.0,
               ),
               markers: Set.from(allMarkers),
