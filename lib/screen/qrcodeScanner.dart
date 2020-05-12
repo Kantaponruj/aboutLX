@@ -9,7 +9,11 @@ class qrcodeScanner extends StatefulWidget {
 }
 
 class _qrcodeScannerState extends State<qrcodeScanner> {
-  ScanResult get qrresult => null;
+
+  @override
+  initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +22,9 @@ class _qrcodeScannerState extends State<qrcodeScanner> {
 
   Future<void> _scanQR() async {
     try {
-      var result = await BarcodeScanner.scan();
+      var qrresult = await BarcodeScanner.scan();
       setState(() {
-        result = qrresult;
+        result = qrresult.toString();
       });
     } on PlatformException catch (ex) {
       if (ex.code == BarcodeScanner.cameraAccessDenied) {

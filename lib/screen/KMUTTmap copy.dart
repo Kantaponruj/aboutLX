@@ -27,19 +27,22 @@ class _KMUTTmapState extends State<KMUTTmap> {
     controller.animateCamera(CameraUpdate.newCameraPosition(_position1));
   }
 
-  _onMapCreated(GoogleMapController controller){
+  _onMapCreated(GoogleMapController controller) {
     _controller.complete(controller);
   }
+
   _onCameraMove(CameraPosition position) {
     _lastMapPosition = position.target;
   }
+
   _onMapTypeButtonPressed() {
     setState(() {
       _currentMapType = _currentMapType == MapType.normal
-        ? MapType.satellite 
-        : MapType.normal;
+          ? MapType.satellite
+          : MapType.normal;
     });
   }
+
   _onAddMarkerButtonPressed() {
     setState(() {
       _markers.add(
@@ -61,39 +64,35 @@ class _KMUTTmapState extends State<KMUTTmap> {
       onPressed: function,
       materialTapTargetSize: MaterialTapTargetSize.padded,
       backgroundColor: Colors.orange,
-      child: Icon(
-        icon,
-        size: 36.0),
+      child: Icon(icon, size: 36.0),
     );
   }
 
   Widget popupMennuButton() {
     return PopupMenuButton<String>(
-      icon: Icon(Icons.add,size: 30.0),
+      icon: Icon(Icons.add, size: 30.0),
       itemBuilder: (BuildContext context) => <PopupMenuItem<String>>[
         PopupMenuItem<String>(
           value: "Exhibition",
           child: Text("Exhibition Map"),
         ),
-
         PopupMenuItem<String>(
           value: "KMUTT",
           child: Text("KMUTT Map"),
         ),
-
       ],
-      onSelected: (answer){
+      onSelected: (answer) {
         print(answer);
-        if(answer == "Exhibition"){
+        if (answer == "Exhibition") {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => ControllerPhotoViewPage()),
-            );
-        }else if(answer == "KMUTT"){
+          );
+        } else if (answer == "KMUTT") {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => KMUTTmap()),
-            );
+          );
         }
       },
     );
@@ -102,15 +101,15 @@ class _KMUTTmapState extends State<KMUTTmap> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('KMUTT Map'),
-          actions: <Widget>[
-            popupMennuButton(),
-          ],
-        ),
-        body: Stack(
-          children: <Widget>[
+        home: Scaffold(
+      appBar: AppBar(
+        title: Text('KMUTT Map'),
+        actions: <Widget>[
+          popupMennuButton(),
+        ],
+      ),
+      body: Stack(
+        children: <Widget>[
           GoogleMap(
             onMapCreated: _onMapCreated,
             initialCameraPosition: CameraPosition(
@@ -128,28 +127,27 @@ class _KMUTTmapState extends State<KMUTTmap> {
                 button(_onMapTypeButtonPressed, Icons.map),
                 SizedBox(
                   height: 16.0,
-                  ),
+                ),
                 button(_onAddMarkerButtonPressed, Icons.add_location),
                 SizedBox(
                   height: 16.0,
                 ),
                 button(_goToPosition1, Icons.location_searching),
               ],
-        ),
-      ),  
-    ),
+            ),
+          ),
+        ],
+      ),
+    ));
   }
 
   List<DropdownMenuItem<String>> _dropDownItem() {
-    List<String> maps = ['KMUTT Map','Exhibition Map'];
-    return maps.map(
-            (value) =>
-            DropdownMenuItem(
+    List<String> maps = ['KMUTT Map', 'Exhibition Map'];
+    return maps
+        .map((value) => DropdownMenuItem(
               value: value,
               child: Text(value),
-            )
-    ).toList();
+            ))
+        .toList();
   }
-
 }
-
