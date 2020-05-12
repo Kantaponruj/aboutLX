@@ -155,7 +155,7 @@ class _ControllerPhotoViewPageState extends State<ControllerPhotoViewPage> {
     return PhotoView(
       controller: photoViewController,
       imageProvider: AssetImage(
-        "images/LXFloorPlanwFn.png",
+        "images/LXFloorPlanwFn2.png",
       ),
       minScale: PhotoViewComputedScale.contained * 0.8,
       maxScale: PhotoViewComputedScale.covered * 2,
